@@ -10,6 +10,7 @@ package trabalho1poo;
  * @author aleix
  */
 public class Consulta {
+    private Paciente paciente;
     private String dataConsulta;
     private String horario;
     private String medico;
@@ -19,6 +20,14 @@ public class Consulta {
     public Consulta() {
     }
 
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    
     public String getDataConsulta() {
         return dataConsulta;
     }

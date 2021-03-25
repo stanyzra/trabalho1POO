@@ -19,16 +19,16 @@ public class Trabalho1POO {
      * @param args the command line arguments
      */
     
-    public static void gerenciarPaciente(Scanner input, Usuario usuario, Paciente pacienteNovo, ArrayList pacientes){
+    public static void gerenciarPaciente(Scanner input, Usuario usuario, ArrayList pacientes){
         int op;
         do{
             System.out.println(""
-                    + "-------GERENCIAR PACIENTE--------\n"
-                    + "0 - Voltar                       |\n"
-                    + "1 - Cadastrar Paciente           |\n"
-                    + "2 - Atualizar Paciente           |\n"
-                    + "3 - Remover Paciente             |\n"
-                    + "---------------------------------\n"
+                    + "--------------GERENCIAR PACIENTE-------------\n"
+                    + "0 - Voltar                                   |\n"
+                    + "1 - Cadastrar Paciente                       |\n"
+                    + "2 - Consultar e Atualizar Paciente           |\n"
+                    + "3 - Remover Paciente                         |\n"
+                    + "---------------------------------------------\n"
                     + "Selecione uma opção: ");
 
             op = input.nextInt();
@@ -52,17 +52,48 @@ public class Trabalho1POO {
         }while(op != 0);
     }
     
-    public static void menuSecretaria(Scanner input, Usuario usuario, Paciente pacienteNovo, ArrayList pacientes){
+    public static void gerenciarConsulta(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList consulta){
         int op;
         do{
             System.out.println(""
-                    + "---------MENU SECRETARIA----------\n"
-                    + "0 - Voltar                        |\n"
-                    + "1 - Gerenciar pacientes           |\n"
-                    + "2 - Gerenciar consultas           |\n"
-                    + "3 - Gerar relatórios de consultas |\n"
-                    + "----------------------------------\n"
-                    + "Selecione uma opção: ");
+            + "------------GERENCIAR CONSULTA-------------\n"
+            + "0 - Voltar                                 |\n"
+            + "1 - Cadastrar Consulta                     |\n"
+            + "2 - Consultar e Atualizar Consulta         |\n"
+            + "3 - Remover Consulta                       |\n"
+            + "--------------------------------------------\n"
+            + "Selecione uma opção: ");
+
+            op = input.nextInt();
+            switch(op){
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+                case 1:
+                    usuario.cadastrarConsulta(input, pacientes, consulta);
+                    break;
+                case 2:
+                    usuario.atualizarConsulta(input, pacientes, consulta);
+                    break;
+                case 3:
+                    //usuario.removerConsulta(input, pacientes, consulta);
+                    break;
+            }
+
+        }while(op != 0);
+    }
+    
+    public static void menuSecretaria(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList consultas){
+        int op;
+        do{
+            System.out.println(""
+            + "---------MENU SECRETARIA----------\n"
+            + "0 - Voltar                        |\n"
+            + "1 - Gerenciar pacientes           |\n"
+            + "2 - Gerenciar consultas           |\n"
+            + "3 - Gerar relatórios de consultas |\n"
+            + "----------------------------------\n"
+            + "Selecione uma opção: ");
             op = input.nextInt();
 
             switch(op){
@@ -72,9 +103,10 @@ public class Trabalho1POO {
                 case 0:
                     break;
                 case 1:
-                    gerenciarPaciente(input, usuario, pacienteNovo, pacientes);
+                    gerenciarPaciente(input, usuario, pacientes);
                     break;
                 case 2:
+                    gerenciarConsulta(input, usuario, pacientes, consultas);
                     break;
                 case 3:
                     break;
@@ -93,19 +125,19 @@ public class Trabalho1POO {
         Scanner input = new Scanner(System.in);
        
         Medico medico = new Medico();
-        Paciente pacienteNovo = new Paciente();
         Secretaria secretaria = new Secretaria();
         Usuario usuario = new Usuario();
+        ArrayList<Consulta> consultas = new ArrayList();
         ArrayList<Paciente> pacientes = new ArrayList();
         
         do{
              System.out.println(
-                  "-----INFORMAR TIPO DE USUÁRIO-----\n"
-                + "0 - Sair                          |\n"
-                + "1 - Secretária                    |\n"
-                + "2 - Médico                        |\n"
-                + "----------------------------------\n"
-                + "Selecione uma opção: ");
+            "-----INFORMAR TIPO DE USUÁRIO-----\n"
+            + "0 - Sair                          |\n"
+            + "1 - Secretária                    |\n"
+            + "2 - Médico                        |\n"
+            + "----------------------------------\n"
+            + "Selecione uma opção: ");
         
             op = input.nextInt();
         
@@ -117,7 +149,7 @@ public class Trabalho1POO {
                     break;
                 case 1:
                     usuario.setTipoUsuario(secretaria);                        
-                    menuSecretaria(input, usuario, pacienteNovo, pacientes);
+                    menuSecretaria(input, usuario, pacientes, consultas);
                     break;
                 case 2:
                     usuario.setTipoUsuario(medico);

@@ -48,4 +48,12 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public void cadastrarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas) {
+        tipoUsuario.cadastrarConsulta(input, pacientes, consultas);
+    }
+    
+    public void atualizarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas) {
+        tipoUsuario.atualizarConsulta(input, pacientes, consultas);
+    }
+
 }

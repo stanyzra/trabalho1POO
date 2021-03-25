@@ -17,11 +17,22 @@ public class Paciente {
     private String cidade;
     private String rua;
     private int telefone;
+    private Consulta consulta;
     private boolean particular; //convenio
 
     public Paciente() {
     }
 
+    public Consulta getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
+    }
+
+    
+    
     public int getDataNasc() {
         return dataNasc;
     }

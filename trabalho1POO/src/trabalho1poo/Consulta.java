@@ -11,15 +11,30 @@ package trabalho1poo;
  */
 public class Consulta {
     private Paciente paciente;
-    private String dataConsulta;
-    private String horario;
+    private int dataConsulta;
+    private int horario;
     private String medico;
-    private String nome;
     private boolean consultaNormal; //consulta normal se true, retorno se false
 
     public Consulta() {
     }
 
+    public int getDataConsulta() {
+        return dataConsulta;
+    }
+
+    public void setDataConsulta(int dataConsulta) {
+        this.dataConsulta = dataConsulta;
+    }
+
+    public int getHorario() {
+        return horario;
+    }
+
+    public void setHorario(int horario) {
+        this.horario = horario;
+    }
+    
     public Paciente getPaciente() {
         return paciente;
     }
@@ -28,36 +43,12 @@ public class Consulta {
         this.paciente = paciente;
     }
     
-    public String getDataConsulta() {
-        return dataConsulta;
-    }
-
-    public void setDataConsulta(String dataConsulta) {
-        this.dataConsulta = dataConsulta;
-    }
-
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
     public String getMedico() {
         return medico;
     }
 
     public void setMedico(String medico) {
         this.medico = medico;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public boolean isConsultaNormal() {

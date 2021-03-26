@@ -59,13 +59,9 @@ public class Secretaria extends Usuario{
         pacienteNovo.setRua(rua);
         pacienteNovo.setTelefone(tel);
         pacienteNovo.setParticular(conv);
+        pacienteNovo.setConsultaCadastrada(false);
         
         pacientes.add(pacienteNovo);
-        System.out.println(pacientes.get(0).getNome());
-        if(pacientes.size() > 1){
-            System.out.println(pacientes.get(1).getNome());
-            
-        }
         System.out.println("Paciente cadastrado com sucesso");
         
     }
@@ -111,7 +107,7 @@ public class Secretaria extends Usuario{
                         System.out.print("Plano de saúde)\n");
                     }
 
-                    System.out.println("Selecione a informação que deseja cadastrar: ");
+                    System.out.println("Selecione a informação que deseja atualizar: ");
                     op = input.nextInt();
 
                     switch(op){
@@ -204,17 +200,10 @@ public class Secretaria extends Usuario{
                 }while(indice != 0);
             }
     }
-    /*
-    private Paciente paciente;
-    private String dataConsulta;
-    private String horario;
-    private String medico;
-    private String nome;
-    private boolean consultaNormal; //consulta normal se true, retorno se false
-    */
+    
     public void cadastrarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
-        int op, indice;
-        String dataConsulta, horario, medico, nome;
+        int op, indice, dataConsulta, horario;
+        String medico;
         boolean consultaNormal = false; 
         
         Consulta novaConsulta = new Consulta();
@@ -222,49 +211,55 @@ public class Secretaria extends Usuario{
         if(pacientes.isEmpty()){
             System.out.println("Nenhum paciente inserido.");
         }else{
-            
-        System.out.println("Insira a data da consulta: ");input.nextLine();
-        dataConsulta = input.nextLine();
-        System.out.println("Insira o horario: ");
-        horario = input.nextLine();
-        System.out.println("Insira o nome do medico: ");
-        medico = input.nextLine();
-        System.out.println("Insira o tipo de consulta: (1 para normal || 2 para retorno)");
-        op = input.nextInt();
         
-        switch (op) { //se for true = normal, se for false = retorno
-            default:
-                System.out.println("Opção inválida"); 
-                break;
-            case 1:
-                consultaNormal = true; 
-                break;
-            case 2:
-                consultaNormal = false;
+            System.out.println("Informe para qual paciente deseja realizar a consulta: ");
+        
+            for (int i = 0; i < pacientes.size(); i++) {
+                System.out.println((i+1)+" - "+pacientes.get(i).getNome());
             }
-        System.out.println("Informe para qual paciente deseja realizar a consulta: ");
-        
-        for (int i = 0; i < pacientes.size(); i++) {
-            System.out.println((i+1)+" - "+pacientes.get(i).getNome());
+            
+            indice = input.nextInt();    
+            
+            if(indice == 0){
+            }else if(pacientes.get(indice-1).isConsultaCadastrada()){
+                System.out.println("Não é possível cadastrar uma nova consulta para esse"
+                        + "paciente. Se deseja atualizar, utilize a opção 2 no menu de "
+                        + "gerencimaneto de consultas.");
+            }else{
+                System.out.println("Insira a data da consulta: ");input.nextLine();
+                dataConsulta = input.nextInt();
+                System.out.println("Insira o horario: ");
+                horario = input.nextInt();
+                System.out.println("Insira o nome do medico: ");
+                input.nextLine();
+                medico = input.nextLine();
+                System.out.println("Insira o tipo de consulta: (1 para normal || 2 para retorno)");
+                op = input.nextInt();
+
+                switch (op) { //se for true = normal, se for false = retorno
+                    default:
+                        System.out.println("Opção inválida"); 
+                        break;
+                    case 1:
+                        consultaNormal = true; 
+                        break;
+                    case 2:
+                        consultaNormal = false;
+                }
+
+                novaConsulta.setPaciente(pacientes.get(indice-1));
+                novaConsulta.setConsultaNormal(consultaNormal);
+                novaConsulta.setDataConsulta(dataConsulta);
+                novaConsulta.setHorario(horario);
+                novaConsulta.setMedico(medico);
+                novaConsulta.getPaciente().setConsultaCadastrada(true);
+
+                pacientes.get(indice-1).setConsulta(novaConsulta);
+                consultas.add(novaConsulta);
+
+                //System.out.println("medico: "+pacientes.get(0).getConsulta().getMedico());
+            }
         }
-        
-        indice = input.nextInt();
-        nome = pacientes.get(indice-1).getNome();
-        
-        novaConsulta.setPaciente(pacientes.get(indice-1));
-        novaConsulta.setConsultaNormal(consultaNormal);
-        novaConsulta.setDataConsulta(dataConsulta);
-        novaConsulta.setHorario(horario);
-        novaConsulta.setMedico(medico);
-        novaConsulta.setNome(nome);
-        
-        pacientes.get(indice-1).setConsulta(novaConsulta);
-        consultas.add(novaConsulta);
-        
-        //System.out.println("medico: "+pacientes.get(0).getConsulta().getMedico());
-        
-        }
-        
     }
     
     public void atualizarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
@@ -278,7 +273,7 @@ public class Secretaria extends Usuario{
                 System.out.println("Selecione o paciente que deseja atualizar a consulta: ");
                 
                 for (int i = 0; i < consultas.size(); i++) {
-                    System.out.println((i+1)+" - "+consultas.get(i).getNome());
+                    System.out.println((i+1)+" - "+consultas.get(i).getPaciente().getNome());
                 }
                 indice = input.nextInt();
                 
@@ -302,19 +297,88 @@ public class Secretaria extends Usuario{
                     if(consultas.get(indice).isConsultaNormal() == true){
                         System.out.print("Consulta normal (1 hora))\n");
                     }else{
-                        System.out.print("Plano de saúde)\n");
+                        System.out.print("Retorno (30 minutos))\n");
                     }
+                    
+                    System.out.println("Selecione a informação que deseja atualizar: ");
                     op = input.nextInt();
-                   
+
+                    switch(op){
+                        default:
+                            System.out.println("Opção inválida");
+                            break;
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Insira um novo nome: ");
+                            input.nextLine();
+                            String novoNome = input.nextLine();
+                            consultas.get(indice).getPaciente().setNome(novoNome);
+                            break;
+                        case 2:
+                            System.out.println("Insira uma nova data de consulta: ");
+                            input.nextLine();
+                            int novaDataCons = input.nextInt();
+                            consultas.get(indice).setDataConsulta(novaDataCons);
+                            break;
+                        case 3:
+                            System.out.println("Insira um novo horario: ");
+                            input.nextLine();
+                            int novoHorario = input.nextInt();
+                            consultas.get(indice).setHorario(novoHorario);
+                            break;
+                        case 4:
+                            System.out.println("Insira um médico: ");
+                            input.nextLine();
+                            String novoMedico = input.nextLine();
+                            consultas.get(indice).setMedico(novoMedico);
+                            break;
+                        case 5:  
+                            System.out.println("Insira um novo tipo de consulta (1 para consulta normal || 2 para retorno)");
+                            input.nextLine();
+                            int cons = input.nextInt();
+
+                            switch (cons) { //se for true = consulta normal, se for false = retorno
+                                default:
+                                    System.out.println("Opção inválida"); 
+                                    break;
+                                case 1:
+                                    consultas.get(indice).setConsultaNormal(true);
+                                    break;
+                                case 2:
+                                    consultas.get(indice).setConsultaNormal(false);
+                            }
+                        }
                     }while(op != 0);
                 }
             }
         }while(op!=0);
     }
         
-    
-    public void removerConsulta(){
-        
+    public void removerConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
+        int indice;
+            if(pacientes.isEmpty() || consultas.isEmpty()){
+                System.out.println("Nenhum paciente ou consulta inserida.");
+            }else{
+                do{
+                    System.out.println("Selecione o paciente que deseja remover a consulta: \n"
+                                     + "0 - Sair");
+
+                    for (int i = 0; i < consultas.size(); i++) {
+                        System.out.println((i+1)+" - "+consultas.get(i).getPaciente().getNome());
+                    }
+                    indice = input.nextInt();
+                    if(indice == 0)
+                        break;
+                    else if(indice < 0 || indice > consultas.size()){
+                        System.out.println("Opção inválida");
+                        break;
+                    }else
+                        consultas.get(indice-1).getPaciente().setConsultaCadastrada(false);
+                        consultas.remove(indice-1);
+                    System.out.println("Consulta removida com sucesso");
+                }while(indice != 0);
+            }
     }
     
     public void gerarRelatorioConsulta(){

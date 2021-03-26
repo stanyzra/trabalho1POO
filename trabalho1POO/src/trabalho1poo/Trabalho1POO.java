@@ -76,7 +76,7 @@ public class Trabalho1POO {
                     usuario.atualizarConsulta(input, pacientes, consulta);
                     break;
                 case 3:
-                    //usuario.removerConsulta(input, pacientes, consulta);
+                    usuario.removerConsulta(input, pacientes, consulta);
                     break;
             }
 

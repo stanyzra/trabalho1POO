@@ -55,5 +55,9 @@ public class Usuario {
     public void atualizarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas) {
         tipoUsuario.atualizarConsulta(input, pacientes, consultas);
     }
+    
+    public void removerConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas) {
+        tipoUsuario.removerConsulta(input, pacientes, consultas);
+    }
 
 }

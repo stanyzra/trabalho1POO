@@ -18,7 +18,7 @@ public class Paciente {
     private String rua;
     private int telefone;
     private Consulta consulta;
-    private boolean particular; //convenio
+    private boolean particular, consultaCadastrada; //convenio
 
     public Paciente() {
     }
@@ -27,6 +27,14 @@ public class Paciente {
         return consulta;
     }
 
+    public boolean isConsultaCadastrada() {
+        return consultaCadastrada;
+    }
+
+    public void setConsultaCadastrada(boolean consultaCadastrada) {
+        this.consultaCadastrada = consultaCadastrada;
+    }
+    
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
     }

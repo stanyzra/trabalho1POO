@@ -15,12 +15,21 @@ public class DadosAdicionais {
     private boolean bebe;
     private boolean colesterol;
     private boolean diabete;
-    private boolean doençaCard;
+    private boolean doencaCard;
     private String cirurgias;
     private String alergias;
+    private Paciente paciente;
 
     public void DadosAdicionais(){
         
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
     
     public boolean isFuma() {
@@ -55,12 +64,12 @@ public class DadosAdicionais {
         this.diabete = diabete;
     }
 
-    public boolean isDoençaCard() {
-        return doençaCard;
+    public boolean isDoencaCard() {
+        return doencaCard;
     }
 
-    public void setDoençaCard(boolean doençaCard) {
-        this.doençaCard = doençaCard;
+    public void setDoencaCard(boolean doençaCard) {
+        this.doencaCard = doençaCard;
     }
 
     public String getCirurgias() {

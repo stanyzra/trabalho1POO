@@ -18,7 +18,8 @@ public class Paciente {
     private String rua;
     private int telefone;
     private Consulta consulta;
-    private boolean particular, consultaCadastrada; //convenio
+    private DadosAdicionais dadosAdicionais;
+    private boolean particular, consultaCadastrada, dadosAdicionaisCadastrado; //convenio
 
     public Paciente() {
     }
@@ -39,8 +40,22 @@ public class Paciente {
         this.consulta = consulta;
     }
 
-    
-    
+    public boolean isDadosAdicionaisCadastrado() {
+        return dadosAdicionaisCadastrado;
+    }
+
+    public void setDadosAdicionaisCadastrado(boolean dadosAdicionaisCadastrado) {
+        this.dadosAdicionaisCadastrado = dadosAdicionaisCadastrado;
+    }
+
+    public DadosAdicionais getDadosAdicionais() {
+        return dadosAdicionais;
+    }
+
+    public void setDadosAdicionais(DadosAdicionais dadosAdicionais) {
+        this.dadosAdicionais = dadosAdicionais;
+    }
+        
     public int getDataNasc() {
         return dataNasc;
     }

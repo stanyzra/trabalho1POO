@@ -19,7 +19,8 @@ public class Paciente {
     private int telefone;
     private Consulta consulta;
     private DadosAdicionais dadosAdicionais;
-    private boolean particular, consultaCadastrada, dadosAdicionaisCadastrado; //convenio
+    private Prontuario prontuario;
+    private boolean particular, consultaCadastrada, dadosAdicionaisCadastrado, prontuarioCadastrado; //convenio
 
     public Paciente() {
     }
@@ -56,6 +57,22 @@ public class Paciente {
         this.dadosAdicionais = dadosAdicionais;
     }
         
+    public boolean isProntuarioCadastrado(){
+        return prontuarioCadastrado;
+    }
+    
+    public void setProntuarioCadastrado(boolean prontuarioCadastrado) {
+        this.prontuarioCadastrado = prontuarioCadastrado;
+    }
+
+    public Prontuario getProntuario() {
+        return prontuario;
+    }
+    
+    public void setProntuario(Prontuario prontuario){
+        this.prontuario = prontuario;
+    }
+    
     public int getDataNasc() {
         return dataNasc;
     }

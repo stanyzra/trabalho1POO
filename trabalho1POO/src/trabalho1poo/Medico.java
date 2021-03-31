@@ -149,8 +149,8 @@ public class Medico extends Usuario{
                     }
                     
                     System.out.print(""
-                            + "6 - Cirurgias (" + dadosAdicionais.get(indice).getCirurgias()+")\n"
-                            + "7 - Alergias (" + dadosAdicionais.get(indice).getAlergias()+")\n"
+                            + "6 - Alergias (" + dadosAdicionais.get(indice).getAlergias()+")\n"
+                            + "7 - Cirurgias (" + dadosAdicionais.get(indice).getCirurgias()+")\n"                            
                     );
 
                     System.out.println("Selecione a informação que deseja atualizar: ");
@@ -183,16 +183,16 @@ public class Medico extends Usuario{
                             dadosAdicionais.get(indice).setDoencaCard(!(dadosAdicionais.get(indice).isDoencaCard()));
                             break;
                         case 6:
-                            System.out.println("Insira as cirurgias que o paciente já passou");
-                            input.nextLine();
-                            String novoCirurgias = input.nextLine();
-                            dadosAdicionais.get(indice).setCirurgias(novoCirurgias);
-                            break;
-                        case 7:  
                             System.out.println("Insira as Alergias que o Paciente Possui)");
                             input.nextLine();
                             String novoAlergias = input.nextLine();
                             dadosAdicionais.get(indice).setAlergias(novoAlergias);
+                            break; 
+                        case 7:  
+                            System.out.println("Insira as cirurgias que o paciente já passou");
+                            input.nextLine();
+                            String novoCirurgias = input.nextLine();
+                            dadosAdicionais.get(indice).setCirurgias(novoCirurgias);
                             break;
                         }
                     }while(op != 0); 
@@ -227,16 +227,142 @@ public class Medico extends Usuario{
             }
     }
     
-    public void cadastrarProntuario(){
+    public void cadastrarProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        String sintomas, diagnosticoDoenca, prescricaoTratamento;
+        int indice;
         
+        Prontuario novoProntuario = new Prontuario();
+        
+        if(pacientes.isEmpty()){
+            System.out.println("Nenhum paciente inserido.");
+        }else{
+        
+            System.out.println("Informe para qual paciente deseja cadastrar o prontuario: ");
+        
+            for (int i = 0; i < pacientes.size(); i++) {
+                System.out.println((i+1)+" - "+pacientes.get(i).getNome());
+            }
+            
+            indice = input.nextInt();    
+            
+            if(indice == 0){
+            }else if(pacientes.get(indice-1).isProntuarioCadastrado()){
+                System.out.println("Não é possível cadastrar um prontuario para esse"
+                        + "paciente. Se deseja atualizar, utilize a opção 2 no menu de "
+                        + "gerencimaneto de prontuario.");
+            }else{
+                System.out.println("Quais os sintomas do paciente? ");
+                input.nextLine();
+                sintomas = input.nextLine();
+                
+                System.out.println("Qual o Diagnóstico do paciente? ");
+                input.nextLine();
+                diagnosticoDoenca = input.nextLine();
+                
+                System.out.println("Qual a Prescrição para o paciente? ");
+                prescricaoTratamento = input.nextLine();
+                
+                novoProntuario.setPaciente(pacientes.get(indice-1));
+                novoProntuario.setSintomas(sintomas);
+                novoProntuario.setDiagnosticoDoenca(diagnosticoDoenca);
+                novoProntuario.setPrescricaoTratamento(prescricaoTratamento);
+                pacientes.get(indice-1).setProntuario(novoProntuario);
+                pacientes.get(indice-1).setProntuarioCadastrado(true);
+                prontuario.add(novoProntuario);
+            }
+        }
     }
     
-    public void atualizarProntuario(){
-        
+    public void atualizarProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        int op, indice;
+        do{
+            if(pacientes.isEmpty() || prontuario.isEmpty()){
+                System.out.println("Nenhum paciente inserido ou prontuario.");
+                break;
+            }else{
+                
+                System.out.println("Selecione o paciente que deseja atualizar: ");
+                
+                for (int i = 0; i < prontuario.size(); i++) {
+                    System.out.println((i+1)+" - "+prontuario.get(i).getPaciente().getNome());
+                }
+                indice = input.nextInt();
+                
+                if(indice == 0)
+                    break;
+                else if(indice < 0 || indice > prontuario.size()){
+                    System.out.println("Opção inválida!");
+                    break;
+                }else{
+                
+                    indice--;
+                    System.out.println("--------------------------------------------");
+                    do{
+                    System.out.print(""
+                            + "0 - Voltar \n"
+                            + "1 - Sintomas (" + prontuario.get(indice).getSintomas()+")\n"
+                            + "2 - Diagnostico Doença (" + prontuario.get(indice).getDiagnosticoDoenca()+")\n"
+                            + "3 - Prescrição Tratamento (" + prontuario.get(indice).getPrescricaoTratamento()+")\n"
+                    );
+
+                    System.out.println("Selecione a informação do prontuario que deseja atualizar: ");
+                    op = input.nextInt();
+
+                    switch(op){
+                        default:
+                            System.out.println("Opção inválida");
+                            break;
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Insira os Sintomas do Paciente: )");
+                            input.nextLine();
+                            String novoSintomas = input.nextLine();
+                            prontuario.get(indice).setSintomas(novoSintomas);
+                            break;
+                        case 2:
+                            System.out.println("Insira o Diagnostico do Paciente: )");
+                            input.nextLine();
+                            String novoDiagnosticoDoenca = input.nextLine();
+                            prontuario.get(indice).setDiagnosticoDoenca(novoDiagnosticoDoenca);
+                            break;
+                        case 3:
+                            System.out.println("Insira a Prescrição do Tratamento do paciente: )");
+                            input.nextLine();
+                            String novoPrescricaoTratamento = input.nextLine();
+                            prontuario.get(indice).setPrescricaoTratamento(novoPrescricaoTratamento);
+                            break;
+                        }
+                    }while(op != 0); 
+                }
+            }
+        }while(op != 0);
     }
     
-    public void removerProntuario(){
-        
+    public void removerProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        int indice;
+            if(pacientes.isEmpty() || prontuario.isEmpty()){
+                System.out.println("Nenhum paciente ou prontuario inseridos.");
+            }else{
+                do{
+                    System.out.println("Selecione o paciente que deseja remover os dados adicionais: \n"
+                                     + "0 - Sair");
+
+                    for (int i = 0; i < prontuario.size(); i++) {
+                        System.out.println((i+1)+" - "+prontuario.get(i).getPaciente().getNome());
+                    }
+                    indice = input.nextInt();
+                    if(indice == 0)
+                        break;
+                    else if(indice < 0 || indice > prontuario.size()){
+                        System.out.println("Opção inválida");
+                        break;
+                    }else
+                        prontuario.get(indice-1).getPaciente().setDadosAdicionaisCadastrado(false);
+                        prontuario.remove(indice-1);
+                    System.out.println("Prontuario removidos com sucesso");
+                }while(indice != 0);
+            }
     }
     
     public void gerarRelatorioMedico(){

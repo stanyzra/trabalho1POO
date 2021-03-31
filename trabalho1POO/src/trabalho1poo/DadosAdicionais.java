@@ -20,7 +20,7 @@ public class DadosAdicionais {
     private String alergias;
     private Paciente paciente;
 
-    public void DadosAdicionais(){
+    public DadosAdicionais(){
         
     }
 

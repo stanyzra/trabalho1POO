@@ -52,6 +52,37 @@ public class Trabalho1POO {
         }while(op != 0);
     }
     
+     public static void gerenciarPacienteMed(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList dadosAdicionais){
+        int op;
+        do{
+            System.out.println(""
+                    + "------------GERENCIAR PACIENTE MED-----------\n"
+                    + "0 - Voltar                                   |\n"
+                    + "1 - Cadastrar Dados Adicionais               |\n"
+                    + "2 - Consultar e Atualizar Dados Adicionais   |\n"
+                    + "3 - Remover Dados Adicionais                 |\n"
+                    + "---------------------------------------------\n"
+                    + "Selecione uma opção: ");
+
+            op = input.nextInt();
+            switch(op){
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+                case 1:
+                    usuario.cadastrarPaciente(input, pacientes, dadosAdicionais);
+                    break;
+                case 2:
+                    usuario.atualizarPaciente(input, pacientes, dadosAdicionais);
+                    break;
+                case 3:
+                    usuario.removerPaciente(input, pacientes, dadosAdicionais);
+                    break;
+            }
+       
+        }while(op != 0);
+    }
+    
     public static void gerenciarConsulta(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList consulta){
         int op;
         do{
@@ -77,6 +108,37 @@ public class Trabalho1POO {
                     break;
                 case 3:
                     usuario.removerConsulta(input, pacientes, consulta);
+                    break;
+            }
+
+        }while(op != 0);
+    }
+    
+    public static void gerenciarProntuario(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList prontuario){
+        int op;
+        do{
+            System.out.println(""
+            + "------------GERENCIAR CONSULTA-------------\n"
+            + "0 - Voltar                                 |\n"
+            + "1 - Cadastrar Prontuario                   |\n"
+            + "2 - Consultar e Atualizar Prontuario       |\n"
+            + "3 - Remover Prontuario                     |\n"
+            + "--------------------------------------------\n"
+            + "Selecione uma opção: ");
+
+            op = input.nextInt();
+            switch(op){
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+                case 1:
+                    usuario.cadastrarProntuario(input, pacientes, prontuario);
+                    break;
+                case 2:
+                    usuario.atualizarProntuario(input, pacientes, prontuario);
+                    break;
+                case 3:
+                    usuario.removerProntuario(input, pacientes, prontuario);
                     break;
             }
 
@@ -115,8 +177,38 @@ public class Trabalho1POO {
         }while(op != 0);
     }
     
-    public static void menuMedico(){
-        System.out.println("");
+    public static void menuMedico(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList dadosAdicionais, ArrayList prontuario){
+        int op;
+        
+        do{
+            System.out.println(""
+            + "-----------MENU MEDICO------------\n"
+            + "0 - Voltar                        |\n"
+            + "1 - Gerenciar pacientes           |\n"
+            + "2 - Gerenciar prontuario          |\n"
+            + "3 - Gerar relatórios              |\n"
+            + "----------------------------------\n"
+            + "Selecione uma opção: ");
+            op = input.nextInt();
+
+            switch(op){
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+                case 0:
+                    break;
+                case 1:
+                    gerenciarPacienteMed(input, usuario, pacientes, dadosAdicionais);
+                    break;
+                case 2:
+                    gerenciarProntuario(input, usuario, pacientes, prontuario);
+                    
+                    break;
+                case 3:
+                    break;
+            }
+            
+        }while(op != 0);
     }
     
     public static void main(String[] args) {
@@ -129,6 +221,8 @@ public class Trabalho1POO {
         Usuario usuario = new Usuario();
         ArrayList<Consulta> consultas = new ArrayList();
         ArrayList<Paciente> pacientes = new ArrayList();
+        ArrayList<DadosAdicionais> dadosAdicionais = new ArrayList();
+        ArrayList<Prontuario> prontuario = new ArrayList();
         
         do{
              System.out.println(
@@ -153,6 +247,7 @@ public class Trabalho1POO {
                     break;
                 case 2:
                     usuario.setTipoUsuario(medico);
+                    menuMedico(input, usuario, pacientes, dadosAdicionais, prontuario);
             }
         }while(op != 0);
     }

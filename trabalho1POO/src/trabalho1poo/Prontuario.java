@@ -9,14 +9,23 @@ package trabalho1poo;
  *
  * @author aleix
  */
-public class Protuario {
+public class Prontuario {
     private String sintomas;
     private String diagnosticoDoenca;
     private String prescricaoTratamento;
+    private Paciente paciente;
 
-    public Protuario() {
+    public Prontuario() {
     }
 
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    
     public String getSintomas() {
         return sintomas;
     }

@@ -31,15 +31,38 @@ public class Usuario {
         tipoUsuario.cadastrarPaciente(input, pacientes);
     }
     
+    public void cadastrarPaciente(Scanner input, ArrayList<Paciente> pacientes, ArrayList<DadosAdicionais> dadosAdicionais){
+        tipoUsuario.cadastrarPaciente(input, pacientes, dadosAdicionais);
+    }
+    
     public void atualizarPaciente(Scanner input, ArrayList<Paciente> pacientes){
         tipoUsuario.atualizarPaciente(input, pacientes);
-
+    }
+    
+    public void atualizarPaciente(Scanner input, ArrayList<Paciente> pacientes, ArrayList<DadosAdicionais> dadosAdicionais){
+        tipoUsuario.atualizarPaciente(input, pacientes, dadosAdicionais);
     }
     
     public void removerPaciente(Scanner input, ArrayList<Paciente> pacientes){
         tipoUsuario.removerPaciente(input, pacientes);
-
     }
+    
+    public void removerPaciente(Scanner input, ArrayList<Paciente> pacientes, ArrayList<DadosAdicionais> dadosAdicionais){
+        tipoUsuario.removerPaciente(input, pacientes, dadosAdicionais);
+    }
+    
+    public void cadastrarProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        tipoUsuario.cadastrarProntuario(input, pacientes, prontuario);
+    }
+    
+    public void atualizarProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        tipoUsuario.atualizarProntuario(input, pacientes, prontuario);
+    }
+    
+    public void removerProntuario(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Prontuario> prontuario){
+        tipoUsuario.removerProntuario(input, pacientes, prontuario);
+    }
+    
     public Usuario getTipoUsuario() {
         return tipoUsuario;
     }

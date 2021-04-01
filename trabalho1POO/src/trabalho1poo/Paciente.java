@@ -20,7 +20,9 @@ public class Paciente {
     private String rua;
     private int telefone;
     private Consulta consulta;
-    private boolean particular, consultaCadastrada; //convenio
+    private DadosAdicionais dadosAdicionais;
+    private Prontuario prontuario;
+    private boolean particular, consultaCadastrada, dadosAdicionaisCadastrado, prontuarioCadastrado; //convenio
 
     public Paciente() {
     }
@@ -43,6 +45,38 @@ public class Paciente {
 
     public LocalDate getLocalDateNasc() {
         return localDateNasc;
+    }
+
+    public boolean isDadosAdicionaisCadastrado() {
+        return dadosAdicionaisCadastrado;
+    }
+
+    public void setDadosAdicionaisCadastrado(boolean dadosAdicionaisCadastrado) {
+        this.dadosAdicionaisCadastrado = dadosAdicionaisCadastrado;
+    }
+
+    public DadosAdicionais getDadosAdicionais() {
+        return dadosAdicionais;
+    }
+
+    public void setDadosAdicionais(DadosAdicionais dadosAdicionais) {
+        this.dadosAdicionais = dadosAdicionais;
+    }
+        
+    public boolean isProntuarioCadastrado(){
+        return prontuarioCadastrado;
+    }
+    
+    public void setProntuarioCadastrado(boolean prontuarioCadastrado) {
+        this.prontuarioCadastrado = prontuarioCadastrado;
+    }
+
+    public Prontuario getProntuario() {
+        return prontuario;
+    }
+    
+    public void setProntuario(Prontuario prontuario){
+        this.prontuario = prontuario;
     }
 
     public void setLocalDateNasc(LocalDate localDateNasc) {

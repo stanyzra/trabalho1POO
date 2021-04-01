@@ -109,7 +109,7 @@ public class Trabalho1POO {
                     gerenciarConsulta(input, usuario, pacientes, consultas);
                     break;
                 case 3:
-                    break;
+                    usuario.gerarRelatorioConsulta(input, pacientes, consultas);
             }
             
         }while(op != 0);

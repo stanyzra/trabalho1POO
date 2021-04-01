@@ -5,13 +5,15 @@
  */
 package trabalho1poo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author aleix
  */
 public class Consulta {
     private Paciente paciente;
-    private int dataConsulta;
+    private LocalDate localDateCons;
     private int horario;
     private String medico;
     private boolean consultaNormal; //consulta normal se true, retorno se false
@@ -19,12 +21,12 @@ public class Consulta {
     public Consulta() {
     }
 
-    public int getDataConsulta() {
-        return dataConsulta;
+    public LocalDate getLocalDateCons() {
+        return localDateCons;
     }
 
-    public void setDataConsulta(int dataConsulta) {
-        this.dataConsulta = dataConsulta;
+    public void setLocalDateCons(LocalDate localDateCons) {
+        this.localDateCons = localDateCons;
     }
 
     public int getHorario() {

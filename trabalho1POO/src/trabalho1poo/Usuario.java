@@ -59,5 +59,9 @@ public class Usuario {
     public void removerConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas) {
         tipoUsuario.removerConsulta(input, pacientes, consultas);
     }
+    
+    public void gerarRelatorioConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
+        tipoUsuario.gerarRelatorioConsulta(input, pacientes, consultas);
+    }
 
 }

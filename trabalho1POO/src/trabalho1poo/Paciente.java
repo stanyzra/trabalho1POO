@@ -5,6 +5,8 @@
  */
 package trabalho1poo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author aleix
@@ -12,7 +14,7 @@ package trabalho1poo;
 public class Paciente {
     //dados de identificação
     private String nome;
-    private int dataNasc;
+    private LocalDate localDateNasc;
     private String bairro;
     private String cidade;
     private String rua;
@@ -39,14 +41,12 @@ public class Paciente {
         this.consulta = consulta;
     }
 
-    
-    
-    public int getDataNasc() {
-        return dataNasc;
+    public LocalDate getLocalDateNasc() {
+        return localDateNasc;
     }
 
-    public void setDataNasc(int dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setLocalDateNasc(LocalDate localDateNasc) {
+        this.localDateNasc = localDateNasc;
     }
 
     public String getBairro() {

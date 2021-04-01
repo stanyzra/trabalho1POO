@@ -7,6 +7,9 @@ package trabalho1poo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate; 
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -14,10 +17,12 @@ import java.util.Scanner;
  */
 
 public class Secretaria extends Usuario{
+    DateTimeFormatter toBarras = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public void cadastrarPaciente(Scanner input, ArrayList<Paciente> pacientes){
-        int op, dataNasc, tel;
-        String nome, bairro, cidade, rua;
+        int op, tel;
+        LocalDate dataNasc;
+        String nome, bairro, cidade, rua; 
         boolean conv = false; //inicialização que poderá ser mudada durante a execução do cadastro
 
         Paciente pacienteNovo = new Paciente();
@@ -25,9 +30,8 @@ public class Secretaria extends Usuario{
         System.out.println("Informe o nome: ");
         input.nextLine();
         nome = input.nextLine();
-        System.out.println("Informe a data de nascimento (insira no formato "
-                + "'diamesano' e apenas com números, exemplo: 07112000): ");
-        dataNasc = input.nextInt();
+        System.out.println("Informe a data de nascimento (ano, mes e dia): ");
+        dataNasc = LocalDate.of(input.nextInt(), input.nextInt(), input.nextInt());
         input.nextLine();
         System.out.println("Informe a cidade: ");
         cidade = input.nextLine();
@@ -53,7 +57,7 @@ public class Secretaria extends Usuario{
             }
         
         pacienteNovo.setNome(nome);
-        pacienteNovo.setDataNasc(dataNasc);
+        pacienteNovo.setLocalDateNasc(dataNasc);
         pacienteNovo.setBairro(bairro);
         pacienteNovo.setCidade(cidade);
         pacienteNovo.setRua(rua);
@@ -91,10 +95,10 @@ public class Secretaria extends Usuario{
                     indice--;
                     System.out.println("--------------------------------------------");
                     do{
-                    System.out.print(""
+                    System.out.print("OBS: a data está no formato (dia/mes/ano)"
                             + "0 - Voltar \n"
                             + "1 - Nome (" + pacientes.get(indice).getNome() +")\n"
-                            + "2 - Data de nascimento (" + pacientes.get(indice).getDataNasc()+")\n"
+                            + "2 - Data de nascimento (" + pacientes.get(indice).getLocalDateNasc().format(toBarras)+")\n"
                             + "3 - Cidade (" + pacientes.get(indice).getCidade()+")\n"
                             + "4 - Bairro (" + pacientes.get(indice).getBairro()+")\n"
                             + "5 - Rua (" + pacientes.get(indice).getRua()+")\n"
@@ -123,10 +127,10 @@ public class Secretaria extends Usuario{
                             pacientes.get(indice).setNome(novoNome);
                             break;
                         case 2:
-                            System.out.println("Insira uma nova data de nascimento");
+                            System.out.println("Insira uma nova data de nascimento (ano, mes e dia)");
                             input.nextLine();
-                            int novaDataDasc = input.nextInt();
-                            pacientes.get(indice).setDataNasc(novaDataDasc);
+                            LocalDate novaDataDasc = LocalDate.of(input.nextInt(), input.nextInt(), input.nextInt());
+                            pacientes.get(indice).setLocalDateNasc(novaDataDasc);
                             break;
                         case 3:
                             System.out.println("Insira uma nova cidade");
@@ -202,7 +206,7 @@ public class Secretaria extends Usuario{
     }
     
     public void cadastrarConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
-        int op, indice, dataConsulta, horario;
+        int op, indice, horario;
         String medico;
         boolean consultaNormal = false; 
         
@@ -226,8 +230,8 @@ public class Secretaria extends Usuario{
                         + "paciente. Se deseja atualizar, utilize a opção 2 no menu de "
                         + "gerencimaneto de consultas.");
             }else{
-                System.out.println("Insira a data da consulta: ");input.nextLine();
-                dataConsulta = input.nextInt();
+                System.out.println("Insira a data da consulta: (ano, mes e dia)");input.nextLine();
+                LocalDate dataConsulta = LocalDate.of(input.nextInt(), input.nextInt(), input.nextInt());
                 System.out.println("Insira o horario: ");
                 horario = input.nextInt();
                 System.out.println("Insira o nome do medico: ");
@@ -249,7 +253,7 @@ public class Secretaria extends Usuario{
 
                 novaConsulta.setPaciente(pacientes.get(indice-1));
                 novaConsulta.setConsultaNormal(consultaNormal);
-                novaConsulta.setDataConsulta(dataConsulta);
+                novaConsulta.setLocalDateCons(dataConsulta);
                 novaConsulta.setHorario(horario);
                 novaConsulta.setMedico(medico);
                 novaConsulta.getPaciente().setConsultaCadastrada(true);
@@ -289,7 +293,7 @@ public class Secretaria extends Usuario{
                     System.out.print(""
                             + "0 - Voltar \n"
                             + "1 - Nome (" + consultas.get(indice).getPaciente().getNome() +")\n"
-                            + "2 - Data da consulta (" + consultas.get(indice).getDataConsulta()+")\n"
+                            + "2 - Data da consulta (" + consultas.get(indice).getLocalDateCons().format(toBarras)+")\n"
                             + "3 - Horario (" + consultas.get(indice).getHorario()+")\n"
                             + "4 - Médico (" + consultas.get(indice).getMedico()+")\n"
                             + "5 - Tipo de Consulta (");
@@ -316,10 +320,10 @@ public class Secretaria extends Usuario{
                             consultas.get(indice).getPaciente().setNome(novoNome);
                             break;
                         case 2:
-                            System.out.println("Insira uma nova data de consulta: ");
+                            System.out.println("Insira uma nova data de consulta: (ano, mes e dia)");
                             input.nextLine();
-                            int novaDataCons = input.nextInt();
-                            consultas.get(indice).setDataConsulta(novaDataCons);
+                            LocalDate novaDataCons = LocalDate.of(input.nextInt(), input.nextInt(), input.nextInt());
+                            consultas.get(indice).setLocalDateCons(novaDataCons);
                             break;
                         case 3:
                             System.out.println("Insira um novo horario: ");
@@ -381,8 +385,24 @@ public class Secretaria extends Usuario{
             }
     }
     
-    public void gerarRelatorioConsulta(){
-        
+    public void gerarRelatorioConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
+        if(pacientes.isEmpty() || consultas.isEmpty())
+            System.out.println("Nenhum paciente ou consulta inserida.");
+        else{
+            boolean consultaExiste = false;
+            System.out.println("Relatório de Consultas para o dia (" + LocalDate.now().plusDays(1).format(toBarras) + "), filtrando por telefone");
+            for (int i = 0; i < consultas.size(); i++) {
+
+                if(consultas.get(i).getLocalDateCons().equals(LocalDate.now().plusDays(1))){
+                    
+                    System.out.println("Paciente: " + consultas.get(i).getPaciente().getNome()
+                    + "| Número de telefone: " +consultas.get(i).getPaciente().getTelefone());
+                    consultaExiste = true;
+                }
+            }
+            if(!consultaExiste){
+                System.out.println("Nenhuma consulta cadastrada para esse dia");
+            }
+        }
     }
-    
 }

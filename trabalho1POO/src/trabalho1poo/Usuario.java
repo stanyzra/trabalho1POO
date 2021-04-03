@@ -86,5 +86,8 @@ public class Usuario {
     public void gerarRelatorioConsulta(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas){
         tipoUsuario.gerarRelatorioConsulta(input, pacientes, consultas);
     }
-
+    
+    public void enviarMensagem(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas ){
+        tipoUsuario.enviarMensagem(input, pacientes, consultas);
+    }
 }

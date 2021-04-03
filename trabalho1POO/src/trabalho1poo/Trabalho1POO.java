@@ -18,6 +18,27 @@ public class Trabalho1POO {
     /**
      * @param args the command line arguments
      */
+        public static void menuGerenciarMensagem(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList consultas){
+        int op;
+        do{
+            System.out.println(""
+                    + "--------------------GERENCIAR MENSAGENS--------------------\n"
+                    + "0 - Voltar                                                 |\n"
+                    + "1 - Enviar mensagens para os pacientes do dia seguinte     |\n"
+                    + "-----------------------------------------------------------\n"
+                    + "Selecione uma opção: ");
+
+            op = input.nextInt();
+            switch(op){
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+                case 1:
+                    usuario.enviarMensagem(input, pacientes, consultas);
+            }
+       
+        }while(op != 0);
+    }
     
     public static void gerenciarPaciente(Scanner input, Usuario usuario, ArrayList pacientes){
         int op;
@@ -218,6 +239,7 @@ public class Trabalho1POO {
        
         Medico medico = new Medico();
         Secretaria secretaria = new Secretaria();
+        GerenciadorMensagem gerenciador = new GerenciadorMensagem();
         Usuario usuario = new Usuario();
         ArrayList<Consulta> consultas = new ArrayList();
         ArrayList<Paciente> pacientes = new ArrayList();
@@ -226,10 +248,11 @@ public class Trabalho1POO {
         
         do{
              System.out.println(
-            "-----INFORMAR TIPO DE USUÁRIO-----\n"
+            "------INFORMAR TIPO DE USUÁRIO------\n"
             + "0 - Sair                          |\n"
             + "1 - Secretária                    |\n"
             + "2 - Médico                        |\n"
+            + "3 - Gerenciador de Mensagens      |\n"
             + "----------------------------------\n"
             + "Selecione uma opção: ");
         
@@ -248,6 +271,9 @@ public class Trabalho1POO {
                 case 2:
                     usuario.setTipoUsuario(medico);
                     menuMedico(input, usuario, pacientes, dadosAdicionais, prontuario);
+                case 3:
+                    usuario.setTipoUsuario(gerenciador);
+                    menuGerenciarMensagem(input, usuario, pacientes, consultas);
             }
         }while(op != 0);
     }

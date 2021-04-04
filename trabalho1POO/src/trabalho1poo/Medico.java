@@ -5,6 +5,8 @@
  */
 package trabalho1poo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ import java.util.Scanner;
  */
 
 public class Medico extends Usuario{
-
+    DateTimeFormatter toBarras = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public void cadastrarPaciente(Scanner input, ArrayList<Paciente> pacientes, ArrayList<DadosAdicionais> dadosAdicionais){
         boolean fuma = false, bebe = false, colesterol = false, diabete = false, doencaCard = false;
         String cirurgias, alergias;
@@ -256,7 +258,6 @@ public class Medico extends Usuario{
                 sintomas = input.nextLine();
                 
                 System.out.println("Qual o Diagnóstico do paciente? ");
-                input.nextLine();
                 diagnosticoDoenca = input.nextLine();
                 
                 System.out.println("Qual a Prescrição para o paciente? ");
@@ -322,7 +323,6 @@ public class Medico extends Usuario{
                             break;
                         case 2:
                             System.out.println("Insira o Diagnostico do Paciente: )");
-                            input.nextLine();
                             String novoDiagnosticoDoenca = input.nextLine();
                             prontuario.get(indice).setDiagnosticoDoenca(novoDiagnosticoDoenca);
                             break;
@@ -360,13 +360,135 @@ public class Medico extends Usuario{
                     }else
                         prontuario.get(indice-1).getPaciente().setDadosAdicionaisCadastrado(false);
                         prontuario.remove(indice-1);
-                    System.out.println("Prontuario removidos com sucesso");
+                    System.out.println("Prontuario removido com sucesso");
                 }while(indice != 0);
             }
     }
-    
-    public void gerarRelatorioMedico(){
+            
+    public void gerarRelatorioMedico(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas, ArrayList<Prontuario> prontuario){
         
+        int op, indice, controlador = 0;
+        String receita, acompanhante;
+        do{
+                if(pacientes.isEmpty() || consultas.isEmpty() ){
+                    System.out.println("Nenhum paciente ou consultas inseridas.");
+                    break;
+                }else{
+                    do{
+                        System.out.println("Selecione qual tipo de relatório deseja fazer: ");
+                        System.out.print(""
+                                + "0 - Voltar\n"
+                                + "1 - Receita, Atestado Médico ou Declaração de Acompanhamento\n"
+                                + "2 - Clientes atendidos no mês\n"
+                        );
+                        op = input.nextInt();
+                        switch(op){
+                            default:
+                                System.out.println("Opção inválida");
+                                break;
+                            case 0:
+                                break;
+                            case 1:
+                                relatorioPaciente(input, prontuario);
+                                break;
+                            case 2:
+                                relatorioMes(input, prontuario);
+                                break;
+                        }
+                    }while(op != 0);
+                }
+        }while(op != 0);
+    }
+
+    public void  relatorioPaciente(Scanner input, ArrayList<Prontuario> prontuario){
+        int op = 0;
+        do{
+            if (prontuario.isEmpty()){
+                System.out.println("Nenhum prontuário encontrado!");
+            }else{
+
+                    System.out.println("Qual relatório deseja gerar para o paciente:\n"
+                            + "0 - Voltar\n"
+                            + "1 - Receita\n"
+                            + "2 - Atestado Médico\n"
+                            + "3 - Declaração de Acompanhamento\n");
+                    
+                    op = input.nextInt();
+                    
+                    switch(op){
+                        default:
+                            System.out.println("Opção inválida");
+                            break;
+                        case 0:
+                            break;
+                        case 1:
+                            gerarReceita(input, prontuario);
+                            break;
+                        case 2:
+                            gerarAtestado(input, prontuario);
+                            break;
+                        case 3:
+                            gerarAcompanhamento(input, prontuario);
+                            break;
+                    }
+                }
+        }while(op != 0);
     }
     
+    public void gerarReceita(Scanner input, ArrayList<Prontuario> prontuario){
+        int indice;
+        String receita;
+        System.out.println("Selecione o paciente:");
+        for (int i = 0; i < prontuario.size(); i++)
+            System.out.println((i+1)+" - "+prontuario.get(i).getPaciente().getNome());
+        indice = input.nextInt();
+        indice--;
+        System.out.println("Prescreva a receita:\n");
+        input.nextLine();
+        receita = input.nextLine();
+        System.out.println("\nReceita para o paciente " + prontuario.get(indice).getPaciente().getNome() + "gerada\n"
+                + "a receita diz:\n"
+                + receita);
+    }
+    
+    public void gerarAtestado(Scanner input, ArrayList<Prontuario> prontuario){
+        int indice;
+        System.out.println("Selecione o paciente:");
+        for (int i = 0; i < prontuario.size(); i++)
+            System.out.println((i+1)+" - "+prontuario.get(i).getPaciente().getNome());
+        indice = input.nextInt();
+        indice--;
+        System.out.println("Atestado medico para o paciente " + prontuario.get(indice).getPaciente().getNome()
+                           + " que foi atendido no dia " + prontuario.get(indice).getPaciente().getConsulta().getLocalDateCons().format(toBarras)
+                           + " às " + prontuario.get(indice).getPaciente().getConsulta().getHorario() + " horas");
+    }
+    
+    public void gerarAcompanhamento(Scanner input, ArrayList<Prontuario> prontuario){
+        int indice;
+        String acompanhante;
+        System.out.println("Selecione o paciente:");
+        for (int i = 0; i < prontuario.size(); i++)
+            System.out.println((i+1)+" - "+prontuario.get(i).getPaciente().getNome());
+        indice = input.nextInt();
+        indice--;
+        System.out.println("Informe o nome do acompanhante do paciente " + prontuario.get(indice).getPaciente().getNome());
+        input.nextLine();
+        acompanhante = input.nextLine();
+        System.out.println("Atestado medico para o paciente " + prontuario.get(indice).getPaciente().getNome()
+               + " que foi atendido no dia " + prontuario.get(indice).getPaciente().getConsulta().getLocalDateCons().format(toBarras)
+               + " às " + prontuario.get(indice).getPaciente().getConsulta().getHorario() + " horas"
+               + " acompanhado de " + acompanhante);
+    }
+    
+    public void relatorioMes(Scanner input, ArrayList<Prontuario> prontuario){
+        if (prontuario.isEmpty()){
+                System.out.println("Nenhum prontuário encontrado!");
+        }else{
+            for(int i = 0; i < prontuario.size(); i++){
+                if(prontuario.get(i).getPaciente().getConsulta().getLocalDateCons().getMonthValue() == LocalDate.now().getMonthValue()){
+                    System.out.println("Paciente " + prontuario.get(i).getPaciente().getNome() + " atendido no mes " + LocalDate.now().getMonthValue());
+                }
+            }
+        }
+    }
 }

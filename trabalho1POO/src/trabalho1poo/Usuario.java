@@ -63,6 +63,10 @@ public class Usuario {
         tipoUsuario.removerProntuario(input, pacientes, prontuario);
     }
     
+    public void gerarRelatorioMedico(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas, ArrayList<Prontuario> prontuario){
+        tipoUsuario.gerarRelatorioMedico(input, pacientes, consultas, prontuario);
+    }
+    
     public Usuario getTipoUsuario() {
         return tipoUsuario;
     }

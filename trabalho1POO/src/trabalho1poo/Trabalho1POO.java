@@ -198,7 +198,7 @@ public class Trabalho1POO {
         }while(op != 0);
     }
     
-    public static void menuMedico(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList dadosAdicionais, ArrayList prontuario){
+    public static void menuMedico(Scanner input, Usuario usuario, ArrayList pacientes, ArrayList dadosAdicionais, ArrayList prontuario, ArrayList consultas){
         int op;
         
         do{
@@ -223,9 +223,9 @@ public class Trabalho1POO {
                     break;
                 case 2:
                     gerenciarProntuario(input, usuario, pacientes, prontuario);
-                    
                     break;
                 case 3:
+                    usuario.gerarRelatorioMedico(input, pacientes, consultas, prontuario);
                     break;
             }
             
@@ -270,10 +270,12 @@ public class Trabalho1POO {
                     break;
                 case 2:
                     usuario.setTipoUsuario(medico);
-                    menuMedico(input, usuario, pacientes, dadosAdicionais, prontuario);
+                    menuMedico(input, usuario, pacientes, dadosAdicionais, prontuario, consultas);
+                    break;
                 case 3:
                     usuario.setTipoUsuario(gerenciador);
                     menuGerenciarMensagem(input, usuario, pacientes, consultas);
+                    break;
             }
         }while(op != 0);
     }

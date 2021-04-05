@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabalho1poo;
+
+// STANY HELBERTH RA112683
+// FELIPE ROVERONI RA112675
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author aleix
- */
 public class Usuario {
     
     private Usuario tipoUsuario;
@@ -22,11 +16,7 @@ public class Usuario {
     
     public Usuario() {
     }
-/*
-    public void cadastrarPaciente(String nome, String dataNsc, String endereco, int telefone, boolean particular, Paciente paciente){
-        tipoUsuario.cadastrarPaciente(nome, dataNsc, endereco, telefone, particular, paciente);
-    }
-*/  
+    
     public void cadastrarPaciente(Scanner input, ArrayList<Paciente> pacientes){
         tipoUsuario.cadastrarPaciente(input, pacientes);
     }

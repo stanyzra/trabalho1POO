@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabalho1poo;
+
+// STANY HELBERTH RA112683
+// FELIPE ROVERONI RA112675
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-/**
- *
- * @author aleix
- */
-
 public class Medico extends Usuario{
     DateTimeFormatter toBarras = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
     public void cadastrarPaciente(Scanner input, ArrayList<Paciente> pacientes, ArrayList<DadosAdicionais> dadosAdicionais){
         boolean fuma = false, bebe = false, colesterol = false, diabete = false, doencaCard = false;
         String cirurgias, alergias;
@@ -367,8 +360,7 @@ public class Medico extends Usuario{
             
     public void gerarRelatorioMedico(Scanner input, ArrayList<Paciente> pacientes, ArrayList<Consulta> consultas, ArrayList<Prontuario> prontuario){
         
-        int op, indice, controlador = 0;
-        String receita, acompanhante;
+        int op;
         do{
                 if(pacientes.isEmpty() || consultas.isEmpty() ){
                     System.out.println("Nenhum paciente ou consultas inseridas.");
@@ -487,7 +479,7 @@ public class Medico extends Usuario{
             for(int i = 0; i < prontuario.size(); i++){
                 if(prontuario.get(i).getPaciente().getConsulta().getLocalDateCons().getMonthValue() == LocalDate.now().getMonthValue()){
                     System.out.println("Paciente " + prontuario.get(i).getPaciente().getNome() + " atendido no mes " + LocalDate.now().getMonthValue());
-                }
+                }else System.out.println("Nenhum paciente atendido este mês!");
             }
         }
     }
